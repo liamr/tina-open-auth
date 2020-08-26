@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Head to [the demo](https://tina-open-auth.now.sh/) and hit the 'Edit this Page' button in the top left-hand corner. You will be prompted to authenticate with GitHub and create a fork. After that, you'll be in ['Preview Mode'](https://nextjs.org/docs/advanced-features/preview-mode) and can edit the title via the Tina Sidebar. When you save, that content will be committed to your fork.
 
+https://tinacms.org/guides/nextjs/github/github-oauth-app/
+
 ## Getting Started
 
 First, run the development server:
