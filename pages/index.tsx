@@ -25,7 +25,7 @@ export default function Home({ file, preview }) {
   useGithubToolbarPlugins()
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />

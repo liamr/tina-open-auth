@@ -2,6 +2,8 @@ import App from 'next/app'
 import { TinaCMS, TinaProvider } from 'tinacms'
 import { GithubClient, TinacmsGithubProvider } from 'react-tinacms-github'
 
+import '../styles/app.css'
+
 export default class Site extends App {
   cms: TinaCMS
 
@@ -81,7 +83,7 @@ export interface EditLinkProps {
 
 export const EditLink = ({ cms }: EditLinkProps) => {
   return (
-    <button onClick={() => cms.toggle()}>
+    <button className="bg-gray-300 py-1 px-2 rounded" onClick={() => cms.toggle()}>
       {cms.enabled ? 'Exit Edit Mode' : 'Edit This Site'}
     </button>
   )
