@@ -5,7 +5,7 @@ import { TinaCMS, TinaProvider, ModalProvider } from 'tinacms'
 import { DefaultSeo } from 'next-seo'
 import data from '../content/siteConfig.json'
 import { GlobalStyles, FontLoader } from '@tinacms/styles'
-// import { BrowserStorageApi } from 'utils/plugins/browser-storage-api/BrowserStorageApi'
+import { BrowserStorageApi } from '../utils/plugins/browser-storage-api/BrowserStorageApi'
 import {
   GithubClient,
   GithubMediaStore,
@@ -34,10 +34,10 @@ const MainLayout = ({ Component, pageProps }) => {
     sidebar: pageProps.preview,
     apis: {
       github,
-      // storage:
-      //   typeof window !== 'undefined'
-      //     ? new BrowserStorageApi(window.localStorage)
-      //     : {},
+      storage:
+        typeof window !== 'undefined'
+          ? new BrowserStorageApi(window.localStorage)
+          : {},
     },
     media: {
       store: new GithubMediaStore(github),
