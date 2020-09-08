@@ -44,6 +44,8 @@ export default function Home({ file, preview }) {
 
   // useGithubToolbarPlugins()
 
+  console.log({data})
+
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
