@@ -26,7 +26,7 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `../public/img/${filename}`,
+            parse: (filename) => `../img/${filename}`,
             uploadDir: () => '/public/img/',
             previewSrc: (data) => `${data.img.src}`,
           },
@@ -58,6 +58,7 @@ export default function Home({ file, preview }) {
           <div className="container mx-auto">
             <h1 className="text-5xl">{data.title}</h1>
             <h2 className="text-2xl">{data.subtitle}</h2>
+            <img src={data.img.src} />
           </div>
         </div>
         <div className="container py-5 mx-auto">
