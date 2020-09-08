@@ -2,7 +2,7 @@
   "title": "This is a heading",
   "subtitle": "This is a subtitle 🚴🏼",
   "img": {
-    "src": "/img/rico-replacement.jpg",
+    "src": "../public/img/Screenshot 2020-07-29 at 15.09.28.png",
     "alt": "Join the club"
   }
 }
