@@ -9,11 +9,31 @@ import {
 } from 'react-tinacms-github'
 import { usePlugin } from 'tinacms'
 import { GetStaticProps } from 'next'
+import { EditLink } from '../components/EditLink'
 
 export default function Home({ file, preview }) {
   const formOptions = {
     label: 'Home Page',
-    fields: [{ name: 'title', component: 'text' }],
+    fields: [
+      { name: 'title', label: 'Title', component: 'text' },
+      { name: 'subtitle', label: 'Subtitle', component: 'text' },
+      {
+        label: 'Header Image',
+        name: 'img',
+        component: 'group',
+        fields: [
+          {
+            label: 'Image',
+            name: 'src',
+            component: 'image',
+            parse: (filename) => `../public/img/${filename}`,
+            uploadDir: () => '/public/img/',
+            previewSrc: (data) => `${data.img.src}`,
+          },
+          { label: 'Alt Text', name: 'alt', component: 'text' },
+        ],
+      },
+    ],
   }
 
   /*
@@ -22,7 +42,7 @@ export default function Home({ file, preview }) {
   const [data, form] = useGithubJsonForm(file, formOptions)
   usePlugin(form)
 
-  useGithubToolbarPlugins()
+  // useGithubToolbarPlugins()
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -34,16 +54,11 @@ export default function Home({ file, preview }) {
       <main className="flex-1">
         <div className="py-5 bg-gray-100">
           <div className="container mx-auto">
-          <h1 className="text-5xl">
-            {/*
-             ** Render the title from `home.json`
-             */}
-            {data.title}
-          </h1>
+            <h1 className="text-5xl">{data.title}</h1>
+            <h2 className="text-2xl">{data.subtitle}</h2>
           </div>
         </div>
         <div className="container py-5 mx-auto">
-
           <p className="description">
             Get started by editing <code>pages/index.js</code>
           </p>
@@ -81,7 +96,7 @@ export default function Home({ file, preview }) {
       </main>
 
       <footer>
-        <div className="container py-5 mx-auto">
+        <div className="container flex justify-between py-5 mx-auto">
           <a
             href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             target="_blank"
@@ -89,6 +104,8 @@ export default function Home({ file, preview }) {
           >
             Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
           </a>
+
+          <EditLink />
         </div>
       </footer>
     </div>

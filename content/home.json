@@ -1,4 +1,8 @@
 {
   "title": "This is a heading",
-  "subtitle": "This is a subtitle 🚴🏼"
+  "subtitle": "This is a subtitle 🚴🏼",
+  "img": {
+    "src": "/img/rico-replacement.jpg",
+    "alt": "Join the club"
+  }
 }
