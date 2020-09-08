@@ -1,6 +1,6 @@
 export class BrowserStorageApi {
   data: any = {}
-  timeout: number | null = null
+  timeout: any
   namespace: string
   storage: Storage // should work with window.localStorage or window.sessionStorage
 
