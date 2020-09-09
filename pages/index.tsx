@@ -26,9 +26,9 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `../img/${filename}`,
-            uploadDir: () => '/public/img/',
-            previewSrc: (data) => `${data.img.src}`,
+            parse: (filename) => `../img/${filename}`, // How it's written to .json
+            uploadDir: () => '/public/img/', // The upload directory. 
+            previewSrc: (data) => console.log({data}) || `/public/${data.img.src}`,
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
         ],
@@ -44,7 +44,7 @@ export default function Home({ file, preview }) {
 
   // useGithubToolbarPlugins()
 
-  console.log({data})
+  // console.log({data})
 
   return (
     <div className="flex flex-col min-h-screen">
