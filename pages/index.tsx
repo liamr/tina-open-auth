@@ -27,8 +27,11 @@ export default function Home({ file, preview }) {
             name: 'src',
             component: 'image',
             parse: (filename) => `../img/${filename}`, // How it's written to .json
-            uploadDir: () => '/public/img/', // The upload directory. 
-            previewSrc: (data) => console.log({data}) || `/public/${data.img.src}`,
+            uploadDir: () => '/public/img/', // The upload directory.
+            previewSrc: (data) => {
+              console.log({ data })
+              return `/public/${data.img.src}`
+            },
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
         ],
