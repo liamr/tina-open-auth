@@ -30,7 +30,7 @@ export default function Home({ file, preview }) {
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
               console.log({ data })
-              const imgPreviewPath = data.img.src.replace('./img', 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img')
+              const imgPreviewPath = data.img.src.replace('../img', 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img')
               return `${imgPreviewPath}`
             },
           },
