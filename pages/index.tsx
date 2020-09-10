@@ -145,3 +145,5 @@ export const getStaticProps: GetStaticProps = async function ({
     },
   }
 }
+
+// https://community.tinacms.org/t/file-creation-upload-in-open-authoring/175
