@@ -66,7 +66,7 @@ module.exports = {
   },
   purge: {
     mode: 'all',
-    content: ['./src/**/*.{js,mdx,tsx}', './next.config.js'],
+    content: ['./{pages,components,content}/**/*.{js,mdx,tsx}', './next.config.js'],
     // options: {
     //   extractors: [
     //     {
