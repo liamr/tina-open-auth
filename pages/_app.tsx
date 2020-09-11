@@ -60,8 +60,8 @@ const MainLayout = ({ Component, pageProps }) => {
     if (token) {
       headers.append('Authorization', 'Bearer ' + token)
     }
-
-    const response = await fetch(`/api/preview`, { headers })
+    // The auto redirect was causing a problem here.
+    const response = await fetch(`/api/preview?test=1`, { headers })
     const data = await response.json()
 
     if (response.status === 200) {

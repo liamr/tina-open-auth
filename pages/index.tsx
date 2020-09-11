@@ -12,6 +12,8 @@ import { GetStaticProps } from 'next'
 import { EditLink } from '../components/EditLink'
 
 export default function Home({ file, preview }) {
+
+  console.log('INDEX', file.data )
   const formOptions = {
     label: 'Home Page',
     fields: [
@@ -48,7 +50,7 @@ export default function Home({ file, preview }) {
 
   // useGithubToolbarPlugins()
 
-  // console.log({data})
+  console.log({data})
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -127,12 +129,14 @@ export const getStaticProps: GetStaticProps = async function ({
   previewData,
 }) {
   if (preview) {
+    console.log('PREVIEW', {previewData}, {preview})
     return getGithubPreviewProps({
       ...previewData,
       fileRelativePath: 'content/home.json',
       parse: parseJson,
     })
   }
+  console.log('LOCAL')
   return {
     props: {
       sourceProvider: null,
