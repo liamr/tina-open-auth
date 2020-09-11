@@ -13,6 +13,11 @@ import { EditLink } from '../components/EditLink'
 
 export default function Home({ file, preview }) {
   console.log('INDEX', file.data)
+
+  const imgPreviewPath = preview
+    ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
+    : '../img/'
+
   const formOptions = {
     label: 'Home Page',
     fields: [
@@ -30,9 +35,6 @@ export default function Home({ file, preview }) {
             parse: (filename) => `${filename}`, // How it's written to .json
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
-              const imgPreviewPath = preview
-                ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
-                : '../img/'
               return `${imgPreviewPath}${data.img.src}`
             },
           },
@@ -65,7 +67,7 @@ export default function Home({ file, preview }) {
             <h1 className="text-5xl">{data.title}</h1>
             <h2 className="text-2xl">{data.subtitle}</h2>
             {data.img && data.img.src && (
-              <img src={`../img/${data.img.src}`} />
+              <img src={`${imgPreviewPath}${data.img.src}`} />
             )}
           </div>
         </div>
