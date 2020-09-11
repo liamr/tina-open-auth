@@ -12,8 +12,7 @@ import { GetStaticProps } from 'next'
 import { EditLink } from '../components/EditLink'
 
 export default function Home({ file, preview }) {
-
-  console.log('INDEX', file.data )
+  console.log('INDEX', file.data)
   const formOptions = {
     label: 'Home Page',
     fields: [
@@ -31,9 +30,9 @@ export default function Home({ file, preview }) {
             parse: (filename) => `${filename}`, // How it's written to .json
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
-              console.log({ data })
-              
-              const imgPreviewPath = preview ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/' : '../img/'
+              const imgPreviewPath = preview
+                ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
+                : '../img/'
               return `${imgPreviewPath}${data.img.src}`
             },
           },
@@ -51,7 +50,7 @@ export default function Home({ file, preview }) {
 
   // useGithubToolbarPlugins()
 
-  console.log({data})
+  console.log({ data })
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -65,7 +64,9 @@ export default function Home({ file, preview }) {
           <div className="container mx-auto">
             <h1 className="text-5xl">{data.title}</h1>
             <h2 className="text-2xl">{data.subtitle}</h2>
-            <img src={data.img.src} />
+            {data.img && data.img.src && (
+              <img src={`../img/${data.img.src}`} />
+            )}
           </div>
         </div>
         <div className="container py-5 mx-auto">
@@ -130,7 +131,7 @@ export const getStaticProps: GetStaticProps = async function ({
   previewData,
 }) {
   if (preview) {
-    console.log('PREVIEW', {previewData}, {preview})
+    console.log('PREVIEW', { previewData }, { preview })
     return getGithubPreviewProps({
       ...previewData,
       fileRelativePath: 'content/home.json',
