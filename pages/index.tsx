@@ -28,12 +28,13 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `../img/${filename}`, // How it's written to .json
+            parse: (filename) => `${filename}`, // How it's written to .json
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
               console.log({ data })
-              const imgPreviewPath = data.img.src.replace('../img', 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img')
-              return `${imgPreviewPath}`
+              
+              const imgPreviewPath = preview ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/' : '../img/'
+              return `${imgPreviewPath}${data.img.src}`
             },
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
