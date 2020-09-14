@@ -3,3 +3,9 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+@import './blocks/features.css';
+@import './blocks/hero.css';
+@import './blocks/images.css';
+@import './blocks/paragraph.css';
+@import './blocks/index.css'

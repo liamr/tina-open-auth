@@ -123,6 +123,9 @@ export default function Home({ file, preview }) {
         ],
       },
     ],
+    onSubmit() {
+      cms.alerts.success('Saved!');
+    },
   }
 
   /*
