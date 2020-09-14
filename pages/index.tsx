@@ -7,16 +7,30 @@ import {
   useGithubJsonForm,
   useGithubToolbarPlugins,
 } from 'react-tinacms-github'
-import { usePlugin } from 'tinacms'
+import { usePlugin, useCMS } from 'tinacms'
 import { GetStaticProps } from 'next'
 import { EditLink } from '../components/EditLink'
+import { useEffect } from 'react'
 
 export default function Home({ file, preview }) {
   console.log('INDEX', file.data)
 
+  const cms = useCMS()
+
+    //
   const imgPreviewPath = preview
     ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
     : '../img/'
+
+  // useEffect(() => {
+  //   const previewImage = await cms.api.github.getDownloadUrl(file.data.img.src)
+
+
+  // }, [])
+
+  
+
+  console.log({cms})
 
   const formOptions = {
     label: 'Home Page',
@@ -35,7 +49,58 @@ export default function Home({ file, preview }) {
             parse: (filename) => `${filename}`, // How it's written to .json
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
-              return `${imgPreviewPath}${data.img.src}`
+              // return `${imgPreviewPath}${data.img.src}`
+              return cms.api.github.getDownloadUrl(`/public/img/${data.img.src}`)
+            },
+          },
+          { label: 'Alt Text', name: 'alt', component: 'text' },
+        ],
+      },
+      //
+      {
+        label: 'Content Section',
+        name: 'content-section',
+        component: 'group',
+        fields: [
+          {
+            label: 'Heading',
+            name: 'heading',
+            component: 'group-list',
+            description: 'Section heading',
+            itemProps: item => ({
+              key: item.id,
+              label: item.text,
+            }),
+            defaultItem: () => ({
+              name: 'New Heading line',
+              id: Math.random()
+                .toString(36)
+                .substr(2, 9),
+            }),
+            fields: [
+              {
+                label: 'Text',
+                name: 'text',
+                component: 'text',
+              },
+              {
+                label: 'Colour',
+                name: 'colour',
+                component: 'text',
+              },
+            ],
+          },
+          { name: 'title', label: 'Title', component: 'text' },
+          { name: 'body', label: 'Body', component: 'markdown' },
+          {
+            label: 'Image',
+            name: 'src',
+            component: 'image',
+            parse: (filename) => `${filename}`, // How it's written to .json
+            uploadDir: () => '/public/img/', // The upload directory.
+            previewSrc: (data) => {
+              // return `${imgPreviewPath}${data.img.src}`
+              return cms.api.github.getDownloadUrl(`/public/img/${data.img.src}`)
             },
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
