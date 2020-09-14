@@ -4,5 +4,25 @@
   "img": {
     "src": "2.jpg",
     "alt": "Yey!"
+  },
+  "content-section": {
+    "heading": [
+      {
+        "name": "New Heading line",
+        "id": "9n36qanwp",
+        "text": "This is"
+      },
+      {
+        "name": "New Heading line",
+        "id": "nu55i9yqv",
+        "text": "The best way"
+      },
+      {
+        "name": "New Heading line",
+        "id": "aijz7las8",
+        "text": "To write text"
+      }
+    ],
+    "body": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. \n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit."
   }
 }
