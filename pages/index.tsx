@@ -72,7 +72,7 @@ export default function Home({ file, preview }) {
               label: item.text,
             }),
             defaultItem: () => ({
-              name: 'New Heading line',
+              text: 'New Heading line',
               id: Math.random()
                 .toString(36)
                 .substr(2, 9),
@@ -84,13 +84,24 @@ export default function Home({ file, preview }) {
                 component: 'text',
               },
               {
-                label: 'Colour',
-                name: 'colour',
-                component: 'text',
+                component: 'select',
+                name: 'color',
+                label: 'Heading Colour',
+                description: 'Select the color for the heading',
+                options: [
+                  {
+                    value: 'red',
+                    label: 'Red',
+                  },
+                  {
+                    value: 'pink',
+                    label: 'Pink',
+                  },
+                ],
               },
             ],
           },
-          { name: 'title', label: 'Title', component: 'text' },
+          // { name: 'title', label: 'Title', component: 'text' },
           { name: 'body', label: 'Body', component: 'markdown' },
           {
             label: 'Image',
@@ -100,10 +111,15 @@ export default function Home({ file, preview }) {
             uploadDir: () => '/public/img/', // The upload directory.
             previewSrc: (data) => {
               // return `${imgPreviewPath}${data.img.src}`
-              return cms.api.github.getDownloadUrl(`/public/img/${data.img.src}`)
+              return cms.api.github.getDownloadUrl(`/public/img/${data['content-section'].src}`)
             },
           },
-          { label: 'Alt Text', name: 'alt', component: 'text' },
+          {
+            name: 'published',
+            component: 'toggle',
+            label: 'Published',
+            description: 'Check to mark this to publish this section.',
+          },
         ],
       },
     ],
