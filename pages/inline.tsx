@@ -17,16 +17,15 @@ import { featureListBlock } from '../components/blocks/FeatureList'
 import { InlineForm, InlineBlocks } from 'react-tinacms-inline'
 import { heroBlock } from '../components/blocks/Hero'
 
-import data from '../content/inline.json'
 
 export default function Home({ file, preview }) {
   console.log('INLINE', file.data)
 
   const cms = useCMS()
 
-  const formConfig = {
-    id: '../content/inline.json',
-    initialValues: data,
+  const formOptions = {
+    label: 'Inline Page',
+    //initialValues: data,
     onSubmit() {
       cms.alerts.success('Saved!')
     },
@@ -35,13 +34,12 @@ export default function Home({ file, preview }) {
   /*
    ** Register a JSON Tina Form
    */
-  //const [, form] = useGithubJsonForm(file, formOptions)
-  const [, form] = useForm(formConfig)
+  const [, form] = useGithubJsonForm(file, formOptions)
+  //const [, form] = useForm(formConfig)
   usePlugin(form)
 
   // useGithubToolbarPlugins()
 
-  console.log({ data })
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -71,7 +69,7 @@ export const getStaticProps: GetStaticProps = async function ({
     console.log('PREVIEW', { previewData }, { preview })
     return getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: 'content/inline.json',
+      fileRelativePath: '../content/inline.json',
       parse: parseJson,
     })
   }
