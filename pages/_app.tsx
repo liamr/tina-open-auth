@@ -51,6 +51,12 @@ const MainLayout = ({ Component, pageProps }) => {
     import('react-tinacms-date').then(({ DateFieldPlugin }) => {
       cms.plugins.add(DateFieldPlugin)
     })
+    import("react-tinacms-editor").then(
+      ({ MarkdownFieldPlugin, HtmlFieldPlugin }) => {
+        cms.plugins.add(MarkdownFieldPlugin)
+        cms.plugins.add(HtmlFieldPlugin)
+      }
+    )
   }, [pageProps.preview])
 
   const enterEditMode = async () => {
@@ -61,7 +67,7 @@ const MainLayout = ({ Component, pageProps }) => {
       headers.append('Authorization', 'Bearer ' + token)
     }
     // The auto redirect was causing a problem here.
-    const response = await fetch(`/api/preview?test=1`, { headers })
+    const response = await fetch(`/api/preview?cb=1`, { headers })
     const data = await response.json()
 
     if (response.status === 200) {
