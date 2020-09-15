@@ -13,11 +13,11 @@
     {
       "_template": "images",
       "left": {
-        "src": "/ivan-bandura-unsplash-square.jpg",
+        "src": "rico-replacement.jpg",
         "alt": "ocean"
       },
       "right": {
-        "src": "/martin-sanchez-unsplash-square.jpg",
+        "src": "rico-replacement.jpg",
         "alt": "dunes"
       }
     },
