@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async function ({
     console.log('PREVIEW', { previewData }, { preview })
     return getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: '../content/inline.json',
+      fileRelativePath: 'content/inline.json',
       parse: parseJson,
     })
   }
