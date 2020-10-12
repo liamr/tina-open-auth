@@ -12,25 +12,29 @@ import { GetStaticProps } from 'next'
 import { EditLink } from '../components/EditLink'
 import { useEffect } from 'react'
 
+import Image from '../components/Image'
+
 export default function Home({ file, preview }) {
   console.log('INDEX', file.data)
 
   const cms = useCMS()
 
-    //
-  const imgPreviewPath = preview
-    ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
-    : '../img/'
-
+  //
+  // const imgPreviewPath = preview
+  //   ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
+  //   : '../img/'
+  //   cms.api.url(publicId)
   // useEffect(() => {
-  //   const previewImage = await cms.api.github.getDownloadUrl(file.data.img.src)
+  //   const getPreviewImage = async () => {
+  //     const previewImage = await cms.media.previewSrc(data.img.src)
 
+  //     console.log({previewImage})
+  //   }
 
+  //   getPreviewImage()
   // }, [])
 
-  
-
-  console.log({cms})
+  console.log({ cms })
 
   const formOptions = {
     label: 'Home Page',
@@ -46,11 +50,9 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `${filename}`, // How it's written to .json
-            uploadDir: () => '/public/img/', // The upload directory.
-            previewSrc: (data) => {
-              // return `${imgPreviewPath}${data.img.src}`
-              return cms.api.github.getDownloadUrl(`/public/img/${data.img.src}`)
+            parse(media) {
+              if (!media) return
+              return media.id
             },
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
@@ -67,15 +69,13 @@ export default function Home({ file, preview }) {
             name: 'heading',
             component: 'group-list',
             description: 'Section heading',
-            itemProps: item => ({
+            itemProps: (item) => ({
               key: item.id,
               label: item.text,
             }),
             defaultItem: () => ({
               text: 'New Heading line',
-              id: Math.random()
-                .toString(36)
-                .substr(2, 9),
+              id: Math.random().toString(36).substr(2, 9),
             }),
             fields: [
               {
@@ -107,11 +107,9 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `${filename}`, // How it's written to .json
-            uploadDir: () => '/public/img/', // The upload directory.
-            previewSrc: (data) => {
-              // return `${imgPreviewPath}${data.img.src}`
-              return cms.api.github.getDownloadUrl(`/public/img/${data['content-section'].src}`)
+            parse(media) {
+              if (!media) return
+              return media.id
             },
           },
           {
@@ -124,7 +122,7 @@ export default function Home({ file, preview }) {
       },
     ],
     onSubmit() {
-      cms.alerts.success('Saved!');
+      cms.alerts.success('Saved!')
     },
   }
 
@@ -150,9 +148,11 @@ export default function Home({ file, preview }) {
           <div className="container mx-auto">
             <h1 className="text-5xl">{data.title}</h1>
             <h2 className="text-2xl">{data.subtitle}</h2>
-            {data.img && data.img.src && (
+            {/* {data.img && data.img.src && (
               <img src={`${imgPreviewPath}${data.img.src}`} />
-            )}
+            )} */}
+            {/* <img src={async () => await cms.api.github.getDownloadUrl(data.img.src)} /> */}
+            <Image src={data.img.src}  />
           </div>
         </div>
         <div className="container py-5 mx-auto">
