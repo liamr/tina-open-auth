@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import App from 'next/app'
 import Head from 'next/head'
-import { TinaCMS, TinaProvider, ModalProvider } from 'tinacms'
+import { TinaCMS, TinaProvider, ModalProvider, Media,
+  MediaList,
+  MediaListOptions,
+  MediaStore } from 'tinacms'
 import { DefaultSeo } from 'next-seo'
 import data from '../content/siteConfig.json'
 import { GlobalStyles, FontLoader } from '@tinacms/styles'
 import { BrowserStorageApi } from '../utils/plugins/browser-storage-api/BrowserStorageApi'
 import {
   GithubClient,
-  GithubMediaStore,
   TinacmsGithubProvider,
 } from 'react-tinacms-github'
+import { Cloudinary } from 'cloudinary-core'
 
 import path from 'path'
 
@@ -27,6 +30,65 @@ const github = new GithubClient({
   baseRepoFullName: "liamr/tina-open-auth", //process.env.BASE_REPO_FULL_NAME,
 })
 
+/**
+ * Cloudinary MediaStore Implimentation
+ */
+
+class CloudinaryMediaStore implements MediaStore {
+  accept = '*'
+  api = new Cloudinary({
+    // TODO: Use environment variable
+    cloud_name: 'tomakin',
+    secure: true,
+  })
+
+  async persist() {
+    return []
+  }
+  async delete(media: Media) {
+    await fetch(`/api/cloudinary/media/${encodeURIComponent(media.id)}`, {
+      method: 'DELETE',
+    })
+  }
+  async list(options: MediaListOptions): Promise<MediaList> {
+    let query = '?'
+
+    if (options.directory) {
+      query += `directory=${encodeURIComponent(options.directory)}`
+    }
+
+    const response = await fetch('/api/cloudinary/media' + query)
+
+    const { items } = await response.json()
+    return {
+      items: items.map((item) => {
+        let previewSrc: string
+
+        if (item.type === 'file') {
+          previewSrc = this.api.url(item.id, {
+            width: 56,
+            height: 56,
+            crop: 'fill',
+            gravity: 'auto',
+          })
+        }
+
+        return {
+          ...item,
+          previewSrc,
+        }
+      }),
+      totalCount: items.length,
+      limit: 500,
+      offset: 0,
+      nextOffset: undefined,
+    }
+  }
+  previewSrc(publicId: string) {
+    return this.api.url(publicId)
+  }
+}
+
 const MainLayout = ({ Component, pageProps }) => {
   const tinaConfig = {
     enabled: pageProps.preview,
@@ -40,12 +102,19 @@ const MainLayout = ({ Component, pageProps }) => {
           : {},
     },
     media: {
-      store: new GithubMediaStore(github),
+      //store: new GithubMediaStore(github),
+      //store: new CloudinaryMediaStore()
     },
     plugins: [],
   }
 
   const cms = React.useMemo(() => new TinaCMS(tinaConfig), [])
+
+  useEffect(() => {
+    cms.media.store = new CloudinaryMediaStore()
+    // @ts-ignore
+    window.github = cms.media.store
+  }, [])
 
   useEffect(() => {
     import('react-tinacms-date').then(({ DateFieldPlugin }) => {

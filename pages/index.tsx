@@ -46,11 +46,9 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `${filename}`, // How it's written to .json
-            uploadDir: () => '/public/img/', // The upload directory.
-            previewSrc: (data) => {
-              // return `${imgPreviewPath}${data.img.src}`
-              return cms.api.github.getDownloadUrl(`/public/img/${data.img.src}`)
+            parse(media) {
+              if (!media) return
+              return media.id
             },
           },
           { label: 'Alt Text', name: 'alt', component: 'text' },
@@ -107,11 +105,9 @@ export default function Home({ file, preview }) {
             label: 'Image',
             name: 'src',
             component: 'image',
-            parse: (filename) => `${filename}`, // How it's written to .json
-            uploadDir: () => '/public/img/', // The upload directory.
-            previewSrc: (data) => {
-              // return `${imgPreviewPath}${data.img.src}`
-              return cms.api.github.getDownloadUrl(`/public/img/${data['content-section'].src}`)
+            parse(media) {
+              if (!media) return
+              return media.id
             },
           },
           {
