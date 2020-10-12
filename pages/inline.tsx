@@ -14,12 +14,12 @@ import { imagesBlock } from '../components/blocks/Images'
 import { paragraphBlock } from '../components/blocks/Paragraph'
 import { featureListBlock } from '../components/blocks/FeatureList'
 
-import { InlineForm, InlineBlocks } from 'react-tinacms-inline'
+import { InlineForm, InlineBlocks, } from 'react-tinacms-inline'
 import { heroBlock } from '../components/blocks/Hero'
 
 
 export default function Home({ file, preview }) {
-  console.log('INLINE', file.data)
+  //console.log('INLINE', file.data)
 
   const cms = useCMS()
 
