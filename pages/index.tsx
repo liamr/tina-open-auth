@@ -152,7 +152,7 @@ export default function Home({ file, preview }) {
               <img src={`${imgPreviewPath}${data.img.src}`} />
             )} */}
             {/* <img src={async () => await cms.api.github.getDownloadUrl(data.img.src)} /> */}
-            <Image src={data.img.src}  />
+            <Image src={data.img.src} className="w-full"  />
           </div>
         </div>
         <div className="container py-5 mx-auto">

@@ -18,7 +18,7 @@ function Images({ index }) {
             }}
             focusRing={false}
           >
-            {({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}${src}`} alt={``} />}
+            {({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}w_800/${src}`} alt={``} />}
           </InlineImage>
           <InlineImage
             name="right.src"
@@ -27,7 +27,7 @@ function Images({ index }) {
               return media.id
             }}
             focusRing={false}
-          >{({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}${src}`} alt={``} />}</InlineImage>
+          >{({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}w_800/${src}`} alt={``} />}</InlineImage>
         </div>
       </div>
     </BlocksControls>
