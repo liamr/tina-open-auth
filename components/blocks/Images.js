@@ -5,8 +5,6 @@ import { BlocksControls, InlineImage } from 'react-tinacms-inline'
 function Images({ index }) {
   const cms = useCMS()
 
-  console.log(cms.enabled)
-
 
   return (
     <BlocksControls index={index} focusRing={{ offset: 0 }} insetControls>
