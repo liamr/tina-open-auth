@@ -19,7 +19,6 @@ import { heroBlock } from '../components/blocks/Hero'
 
 
 export default function Home({ file, preview }) {
-  //console.log('INLINE', file.data)
 
   const cms = useCMS()
 
@@ -66,14 +65,12 @@ export const getStaticProps: GetStaticProps = async function ({
   previewData,
 }) {
   if (preview) {
-    console.log('PREVIEW', { previewData }, { preview })
     return getGithubPreviewProps({
       ...previewData,
       fileRelativePath: 'content/inline.json',
       parse: parseJson,
     })
   }
-  console.log('LOCAL')
   return {
     props: {
       sourceProvider: null,

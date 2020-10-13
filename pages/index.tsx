@@ -15,26 +15,8 @@ import { useEffect } from 'react'
 import Image from '../components/Image'
 
 export default function Home({ file, preview }) {
-  console.log('INDEX', file.data)
 
   const cms = useCMS()
-
-  //
-  // const imgPreviewPath = preview
-  //   ? 'https://raw.githubusercontent.com/liamr/tina-open-auth/master/public/img/'
-  //   : '../img/'
-  //   cms.api.url(publicId)
-  // useEffect(() => {
-  //   const getPreviewImage = async () => {
-  //     const previewImage = await cms.media.previewSrc(data.img.src)
-
-  //     console.log({previewImage})
-  //   }
-
-  //   getPreviewImage()
-  // }, [])
-
-  console.log({ cms })
 
   const formOptions = {
     label: 'Home Page',
@@ -134,8 +116,6 @@ export default function Home({ file, preview }) {
 
   // useGithubToolbarPlugins()
 
-  console.log({ data })
-
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
@@ -217,14 +197,12 @@ export const getStaticProps: GetStaticProps = async function ({
   previewData,
 }) {
   if (preview) {
-    console.log('PREVIEW', { previewData }, { preview })
     return getGithubPreviewProps({
       ...previewData,
       fileRelativePath: 'content/home.json',
       parse: parseJson,
     })
   }
-  console.log('LOCAL')
   return {
     props: {
       sourceProvider: null,
