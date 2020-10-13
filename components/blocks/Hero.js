@@ -13,7 +13,7 @@ export function Hero({ text_color, background_color, align }) {
       }}
     >
       <div className="wrapper wrapper--narrow">
-        <h1>
+        <h1 className="text-2xl font-medium lg:text-5xl">
           <InlineTextarea name="headline" focusRing={false} />
         </h1>
         <p>

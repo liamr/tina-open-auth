@@ -6,7 +6,7 @@ function Feature({ index }) {
   return (
     <BlocksControls index={index}>
       <div className="feature">
-        <h3>
+        <h3 className="text-2xl font-medium">
           <InlineTextarea name="heading" focusRing={false} />
         </h3>
         <p>

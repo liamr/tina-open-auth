@@ -3,6 +3,22 @@ import { useCMS } from 'tinacms'
 import { BlocksControls, InlineImage } from 'react-tinacms-inline'
 import { Image } from 'cloudinary-react'
 
+// <InlineImage
+//   name="left.src"
+//   parse={(media) => {
+//     if (!media) return
+//     return media.id
+//   }}
+//   focusRing={false}
+// >
+//   {({ src }) => (
+//     <img
+//       src={`${cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`}${src}`}
+//       alt={``}
+//     />
+//   )}
+// </InlineImage>
+
 function Images({ index }) {
   const cms = useCMS()
 
@@ -19,31 +35,19 @@ function Images({ index }) {
             focusRing={false}
           >
             {({ src }) => (
-              <img
-                src={`${
-                  cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`
-                }${src}`}
-                alt={``}
-              />
+              <div className="relative pt-full">
+                <Image
+                  className="absolute inset-0 object-cover w-full h-full"
+                  cloudName={process.env.CLOUDINARY_CLOUD_NAME}
+                  publicId={src}
+                  width="auto"
+                  crop="fill"
+                  gravity="auto"
+                  responsive
+                />
+              </div>
             )}
           </InlineImage>
-          {/* <InlineImage
-            name="right.src"
-            parse={(media) => {
-              if (!media) return
-              return media.id
-            }}
-            focusRing={false}
-          >
-            {({ src }) => (
-              <img
-                src={`${
-                  cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`
-                }${src}`}
-                alt={``}
-              />
-            )}
-          </InlineImage> */}
           <InlineImage
             name="right.src"
             // @ts-ignore
@@ -54,14 +58,17 @@ function Images({ index }) {
             previewSrc={(id) => id}
           >
             {({ src }) => (
-              <Image
-                cloudName={process.env.CLOUDINARY_CLOUD_NAME}
-                publicId={src}
-                width="auto"
-                crop="fill"
-                gravity="auto"
-                responsive
-              />
+              <div className="relative pt-full">
+                <Image
+                  className="absolute inset-0 object-cover w-full h-full"
+                  cloudName={process.env.CLOUDINARY_CLOUD_NAME}
+                  publicId={src}
+                  width="auto"
+                  crop="fill"
+                  gravity="auto"
+                  responsive
+                />
+              </div>
             )}
           </InlineImage>
         </div>
