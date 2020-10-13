@@ -101,10 +101,10 @@ const MainLayout = ({ Component, pageProps }) => {
           ? new BrowserStorageApi(window.localStorage)
           : {},
     },
-    media: {
-      //store: new GithubMediaStore(github),
-      //store: new CloudinaryMediaStore()
-    },
+    // media: {
+    //   //store: new GithubMediaStore(github),
+    //   //store: new CloudinaryMediaStore()
+    // },
     plugins: [],
   }
 
