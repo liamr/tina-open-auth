@@ -13,7 +13,8 @@ import {
   GithubClient,
   TinacmsGithubProvider,
 } from 'react-tinacms-github'
-import { Cloudinary } from 'cloudinary-core'
+import { Image } from 'cloudinary-react'
+import { CloudinaryMediaStore } from '../lib/next-tinacms-cloudinary/cloudinary-media-store'
 
 import path from 'path'
 
@@ -30,64 +31,7 @@ const github = new GithubClient({
   baseRepoFullName: "liamr/tina-open-auth", //process.env.BASE_REPO_FULL_NAME,
 })
 
-/**
- * Cloudinary MediaStore Implimentation
- */
 
-class CloudinaryMediaStore implements MediaStore {
-  accept = '*'
-  api = new Cloudinary({
-    // TODO: Use environment variable
-    cloud_name: 'tomakin',
-    secure: true,
-  })
-
-  async persist() {
-    return []
-  }
-  async delete(media: Media) {
-    await fetch(`/api/cloudinary/media/${encodeURIComponent(media.id)}`, {
-      method: 'DELETE',
-    })
-  }
-  async list(options: MediaListOptions): Promise<MediaList> {
-    let query = '?'
-
-    if (options.directory) {
-      query += `directory=${encodeURIComponent(options.directory)}`
-    }
-
-    const response = await fetch('/api/cloudinary/media' + query)
-
-    const { items } = await response.json()
-    return {
-      items: items.map((item) => {
-        let previewSrc: string
-
-        if (item.type === 'file') {
-          previewSrc = this.api.url(item.id, {
-            width: 56,
-            height: 56,
-            crop: 'fill',
-            gravity: 'auto',
-          })
-        }
-
-        return {
-          ...item,
-          previewSrc,
-        }
-      }),
-      totalCount: items.length,
-      limit: 500,
-      offset: 0,
-      nextOffset: undefined,
-    }
-  }
-  previewSrc(publicId: string) {
-    return this.api.url(publicId)
-  }
-}
 
 const MainLayout = ({ Component, pageProps }) => {
   const tinaConfig = {
@@ -111,7 +55,9 @@ const MainLayout = ({ Component, pageProps }) => {
   const cms = React.useMemo(() => new TinaCMS(tinaConfig), [])
 
   useEffect(() => {
-    cms.media.store = new CloudinaryMediaStore()
+    cms.media.store = new CloudinaryMediaStore(
+      process.env.CLOUDINARY_CLOUD_NAME
+    )
     // @ts-ignore
     window.github = cms.media.store
   }, [])
