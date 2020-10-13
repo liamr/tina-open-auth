@@ -1,10 +1,10 @@
 import React from 'react'
 import { useCMS } from 'tinacms'
 import { BlocksControls, InlineImage } from 'react-tinacms-inline'
+import { Image } from 'cloudinary-react'
 
 function Images({ index }) {
   const cms = useCMS()
-
 
   return (
     <BlocksControls index={index} focusRing={{ offset: 0 }} insetControls>
@@ -18,16 +18,52 @@ function Images({ index }) {
             }}
             focusRing={false}
           >
-            {({src}) => <img src={`${cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`}${src}`} alt={``} />}
+            {({ src }) => (
+              <img
+                src={`${
+                  cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`
+                }${src}`}
+                alt={``}
+              />
+            )}
           </InlineImage>
-          <InlineImage
+          {/* <InlineImage
             name="right.src"
             parse={(media) => {
               if (!media) return
               return media.id
             }}
             focusRing={false}
-          >{({src}) => <img src={`${cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`}${src}`} alt={``} />}</InlineImage>
+          >
+            {({ src }) => (
+              <img
+                src={`${
+                  cms.enabled ? '' : `${process.env.MEDIA_BASE_URL}w_800/`
+                }${src}`}
+                alt={``}
+              />
+            )}
+          </InlineImage> */}
+          <InlineImage
+            name="right.src"
+            // @ts-ignore
+            parse={(media) => {
+              if (!media) return
+              return media.id
+            }}
+            previewSrc={(id) => id}
+          >
+            {({ src }) => (
+              <Image
+                cloudName={process.env.CLOUDINARY_CLOUD_NAME}
+                publicId={src}
+                width="auto"
+                crop="fill"
+                gravity="auto"
+                responsive
+              />
+            )}
+          </InlineImage>
         </div>
       </div>
     </BlocksControls>
