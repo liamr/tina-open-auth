@@ -43,7 +43,7 @@ export default function Home({ file, preview }) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <InlineForm form={form} initialStatus="active">
+      <InlineForm form={form}>
         <InlineBlocks name="blocks" blocks={HOME_BLOCKS} />
       </InlineForm>
       <EditLink />
