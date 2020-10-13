@@ -5,6 +5,7 @@ import { BlocksControls, InlineImage } from 'react-tinacms-inline'
 function Images({ index }) {
   const cms = useCMS()
 
+
   return (
     <BlocksControls index={index} focusRing={{ offset: 0 }} insetControls>
       <div className="wrapper">
@@ -16,7 +17,9 @@ function Images({ index }) {
               return media.id
             }}
             focusRing={false}
-          />
+          >
+            {({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}${src}`} alt={``} />}
+          </InlineImage>
           <InlineImage
             name="right.src"
             parse={(media) => {
@@ -24,7 +27,7 @@ function Images({ index }) {
               return media.id
             }}
             focusRing={false}
-          />
+          >{({src}) => <img src={`${cms.enabled ? '' : process.env.MEDIA_BASE_URL}${src}`} alt={``} />}</InlineImage>
         </div>
       </div>
     </BlocksControls>

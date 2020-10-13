@@ -8,11 +8,13 @@ export default function Image({ src }) {
 
   useEffect(() => {
     const getPreviewImage = async () => {
-      //if (cms.media.previewSrc == typeof 'function') {
+      if (cms.media.previewSrc == typeof 'function') {
         // todo - only works in dev mode
         const previewImage = await cms.media.previewSrc(src)
         setImageSrc(previewImage)
-      //}
+      } else {
+        setImageSrc(`${process.env.MEDIA_BASE_URL}${src}`)
+      }
     }
 
     if (cms && cms.media) getPreviewImage()
